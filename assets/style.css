@@ -142,7 +142,8 @@ section:first-of-type { border-top: 0; }
 }
 .hero-in { position: relative; display: grid; gap: 3rem; }
 @media (min-width: 900px) {
-  .hero-in { grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.85fr); align-items: center; gap: 4rem; }
+  .hero-in { grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.85fr); align-items: start; gap: 4rem; }
+  .hero-in > div:last-child { padding-top: 0.6rem; }
 }
 
 .hero h1 {
@@ -244,3 +245,56 @@ footer { border-top: 1px solid var(--line); padding-block: 2.5rem 3.5rem; }
   .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
   .tool::after { transition: none; }
 }
+
+/* --- hero stats --------------------------------------------------------- */
+
+.stats { display: flex; flex-wrap: wrap; gap: 2.25rem; margin-top: 2.5rem; }
+.stats b {
+  display: block; font-size: clamp(1.75rem, 3.4vw, 2.4rem); font-weight: 600;
+  letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.stats li span { display: block; margin-top: 0.4rem; font-size: 0.82rem; color: var(--fg-faint); max-width: 15ch; }
+
+/* --- credentials -------------------------------------------------------- */
+
+.certs { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.certs li { display: flex; align-items: baseline; gap: 0.9rem; padding: 0.85rem 1.1rem; background: var(--bg-raised); }
+.certs b { flex: none; min-width: 6.5rem; font: 500 0.86rem/1.4 var(--mono); color: var(--signal); }
+.certs span { font-size: 0.85rem; color: var(--fg-muted); }
+
+/* --- discipline cards --------------------------------------------------- */
+
+.cards { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+@media (min-width: 760px)  { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1140px) { .cards { grid-template-columns: repeat(4, 1fr); } }
+.cards article { padding: 1.5rem 1.35rem; background: var(--bg); transition: background 0.22s var(--ease); }
+.cards article:hover { background: var(--bg-raised); }
+.cards h3 { font-size: 1rem; margin-bottom: 0.6rem; }
+.cards p { font-size: 0.885rem; color: var(--fg-muted); }
+
+/* --- experience --------------------------------------------------------- */
+
+.timeline { border-left: 1px solid var(--line); }
+.timeline li { position: relative; display: grid; gap: 0.35rem 2.5rem; padding: 0 0 2.25rem 1.75rem; }
+@media (min-width: 860px) { .timeline li { grid-template-columns: 13rem 1fr; } }
+.timeline li::before {
+  content: ''; position: absolute; left: -4.5px; top: 0.55rem;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--bg); border: 1px solid var(--line-strong);
+}
+.timeline li:first-child::before { background: var(--signal); border-color: var(--signal); }
+.timeline .when { font: 400 0.78rem/1.7 var(--mono); color: var(--fg-faint); }
+.timeline h3 { font-size: 1.0625rem; }
+.timeline h3 .at { color: var(--signal); font-weight: 500; }
+.timeline .where { margin: 0.2rem 0 0.6rem; font-size: 0.8rem; color: var(--fg-faint); }
+.timeline .what > p:last-child { font-size: 0.9rem; color: var(--fg-muted); max-width: var(--measure); }
+
+/* --- recognition -------------------------------------------------------- */
+
+.awards { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+@media (min-width: 700px)  { .awards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .awards { grid-template-columns: repeat(3, 1fr); } }
+.awards li { padding: 1.25rem 1.3rem; background: var(--bg); transition: background 0.22s var(--ease); }
+.awards li:hover { background: var(--bg-raised); }
+.awards b { display: block; font-size: 0.95rem; font-weight: 600; }
+.awards span { display: block; margin-top: 0.3rem; font-size: 0.845rem; color: var(--fg-muted); }

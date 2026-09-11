@@ -69,6 +69,39 @@
     items.forEach(function (el) { io.observe(el); });
   }
 
+  /* --- stat count-up --------------------------------------------------- */
+
+  /* Counting is decoration, so it is skipped outright under reduced motion
+     rather than run faster: the final number is what matters. */
+  function countUp(el) {
+    var target = parseInt(el.getAttribute('data-to'), 10);
+    if (!target || reduced) { el.textContent = target ? target + '+' : el.textContent; return; }
+    var start = null, dur = 1100;
+    function frame(ts) {
+      if (start === null) { start = ts; }
+      var p = Math.min(1, (ts - start) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + '+';
+      if (p < 1) { window.requestAnimationFrame(frame); }
+    }
+    window.requestAnimationFrame(frame);
+  }
+
+  var stats = Array.prototype.slice.call(document.querySelectorAll('.stats b[data-to]'));
+  if (stats.length) {
+    if (reduced || !('IntersectionObserver' in window)) {
+      stats.forEach(countUp);
+    } else {
+      var so = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) { return; }
+          countUp(e.target); so.unobserve(e.target);
+        });
+      }, { threshold: 0.5 });
+      stats.forEach(function (el) { so.observe(el); });
+    }
+  }
+
   /* --- footer year ----------------------------------------------------- */
 
   var year = document.getElementById('year');
